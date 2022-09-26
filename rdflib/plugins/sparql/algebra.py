@@ -377,6 +377,8 @@ def translateGroupGraphPattern(graphPattern: CompValue) -> CompValue:
             # the expression as is. This is needed because EXISTS has a graph pattern
             # which must be translated to work properly during evaluation.
             G = Extend(G, translateExists(p.expr), p.var)
+        elif p.name == "EmpTP":
+            G = Project(p, p.o)
 
         else:
             raise Exception(
@@ -428,7 +430,10 @@ def _traverse(
 
     return e
 
-
+def translateEmbTP(u):
+    return u
+def EmpTP(p, o):
+    return CompValue('EmpTP', var=o)
 def _traverseAgg(e, visitor: Callable[[Any, Any], Any] = lambda n, v: None):
     """
     Traverse a parse-tree, visit each node

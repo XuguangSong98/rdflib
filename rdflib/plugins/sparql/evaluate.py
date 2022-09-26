@@ -14,6 +14,7 @@ also return a dict of list of dicts
 
 """
 
+import rdflib
 import collections
 import itertools
 import json as j
@@ -48,6 +49,30 @@ from rdflib.term import BNode, Identifier, Literal, URIRef, Variable
 
 _Triple = Tuple[Identifier, Identifier, Identifier]
 
+def comparetriples(rdfs1, rdfs2with_):
+    strx = str(rdfs1.subject()).strip()
+    strs = str(rdfs2with_.subject()).strip()
+
+    strxp = str(rdfs1.predicate()).strip()
+    strsp = str(rdfs2with_.predicate()).strip()
+
+    strxo = str(rdfs1.object()).strip()
+    strso = str(rdfs2with_.object()).strip()
+
+    sequals = False
+    pequals = False
+    objectequals = False
+
+    if "?" in strs or (strs == strx):
+        sequals = True
+
+    if "?" in strsp or (strsp == strxp):
+        pequals = True
+
+    if "?" in strso or (strso == strxo):
+        objectequals = True
+
+    return sequals & pequals & objectequals
 
 def evalBGP(
     ctx: QueryContext, bgp: List[_Triple]
@@ -61,13 +86,40 @@ def evalBGP(
         return
 
     s, p, o = bgp[0]
-
+    print("BGPSPO", s, p ,o, bgp, type(p), ctx)
+    # p = rdflib.term.Variable('r')
+    # o = rdflib.term.Variable('z')
     _s = ctx[s]
     _p = ctx[p]
     _o = ctx[o]
+    # _s.setSubject("http://example/a")
+    # _s.setPredicate("http://example/b")
+    # _s.setObject("http://example/c")
+    print("324324", _s.subject())
+    print("ctx_s_p_o", _s, _p, _o)
+    print("hello", ctx.graph.triples((None, None, None)), ctx.solution())
+    for x,y,z in ctx.graph.triples((None, None, None)):
+        # print(str(x), str(_s))
+        print("saddasdasdadasd", x ,y ,z)
+        print("testing\n", str(x.subject()), str(_s.subject()))
 
-    # type error: Item "None" of "Optional[Graph]" has no attribute "triples"
-    for ss, sp, so in ctx.graph.triples((_s, _p, _o)):  # type: ignore[union-attr]
+        print(type(x), type(_s))
+        # if type(x) == rdflib.term.RdfstarTriple & type(_s) == rdflib.term.RdfstarTriple:
+        if isinstance(x, rdflib.term.RdfstarTriple) & isinstance(_s, rdflib.term.RdfstarTriple):
+            if (comparetriples(x, _s)):
+                print("dualsdaulsd")
+                _s = x
+        # if (str(x.subject())==str(_s.subject())):
+        #     _s = x
+        # if type(z) == rdflib.term.RdfstarTriple & type(_o) == rdflib.term.RdfstarTriple:
+        #     if (str(z.subject())==str(_o.subject())):
+        #         _o = z
+        if isinstance(z, rdflib.term.RdfstarTriple) & isinstance(_o, rdflib.term.RdfstarTriple):
+            if (comparetriples(z, _o)):
+                print("dualsdaulsd")
+                _o = z
+    for ss, sp, so in ctx.graph.triples((_s, _p, _o)):
+        print("ssspso", ss, sp, so)
         if None in (_s, _p, _o):
             c = ctx.push()
         else:

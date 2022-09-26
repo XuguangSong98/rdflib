@@ -20,49 +20,49 @@ from rdflib.namespace import RDF
 from rdflib.namespace import FOAF
 
 g = ConjunctiveGraph()
-g.parse(data="test/trigstar-evaluation/trig-star-eval-01.trig", format = "trigs")
+g.parse(data="test/test_rdfstar/trigstar-evaluation/trig-star-eval-01.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-02.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-02.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-bnode-1.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-bnode-1.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-bnode-2.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-bnode-2.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-annotation-1.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-annotation-1.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-annotation-2.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-annotation-2.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-annotation-3.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-annotation-3.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-annotation-4.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-annotation-4.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-annotation-5.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-annotation-5.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-quoted-annotation-1.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-quoted-annotation-1.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-quoted-annotation-2.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-quoted-annotation-2.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))
 
 g = ConjunctiveGraph()
-g.parse("test/trigstar-evaluation/trig-star-eval-quoted-annotation-3.trig", format = "trigs")
+g.parse("test/test_rdfstar/trigstar-evaluation/trig-star-eval-quoted-annotation-3.trig", format = "trigs")
 print(g.serialize(format = "trigstar"))

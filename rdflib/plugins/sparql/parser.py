@@ -4,38 +4,45 @@ SPARQL 1.1 Parser
 based on pyparsing
 """
 
-import re
 import sys
+import re
 
-from pyparsing import CaselessKeyword as Keyword  # watch out :)
 from pyparsing import (
-    Combine,
-    Forward,
-    Group,
     Literal,
-    OneOrMore,
-    Optional,
-    ParseResults,
     Regex,
-    Suppress,
+    Optional,
+    OneOrMore,
     ZeroOrMore,
-    delimitedList,
+    Forward,
+    ParseException,
+    Suppress,
+    Combine,
     restOfLine,
+    Group,
+    ParseResults,
+    delimitedList,
 )
-
-import rdflib
-from rdflib.compat import decodeUnicodeEscape
-
-from . import operators as op
-from .parserutils import Comp, Param, ParamList
+from pyparsing import CaselessKeyword as Keyword  # watch out :)
 
 # from pyparsing import Keyword as CaseSensitiveKeyword
 
+from .parserutils import Comp, Param, ParamList
 
+# from parserutils import Comp, Param, ParamList
+
+# import operators as op
+from . import operators as op
+from rdflib.compat import decodeUnicodeEscape
+
+import rdflib
+from rdflib.term import RdfstarTriple
+import hashlib
 DEBUG = False
 
 # ---------------- ACTIONS
 
+def myHash(text:str):
+  return str(hashlib.md5(text.encode('utf-8')).hexdigest())
 
 def neg(literal):
     return rdflib.Literal(-literal, datatype=literal.datatype)
@@ -75,7 +82,11 @@ def expandTriples(terms):
                 if len(t) > 1:
                     res += t
                 # is this bnode the subject of more triples?
-                if i + 1 < l_ and terms[i + 1] not in ".,;":
+                print("test", i + 1, terms[i + 1])
+                ti1 = terms[i + 1]
+                if not isinstance(ti1, str):
+                    ti1 = str(ti1)
+                if i + 1 < l_ and ti1 not in ".,;":
                     res.append(t[0])
             elif isinstance(t, ParseResults):
                 res += t.asList()
@@ -94,7 +105,7 @@ def expandTriples(terms):
         #       "Length of triple-list is not divisible by 3: %d!"%len(res)
 
         # return [tuple(res[i:i+3]) for i in range(len(res)/3)]
-    except:  # noqa: E722
+    except:
         if DEBUG:
             import traceback
 
@@ -224,6 +235,13 @@ PN_LOCAL = Regex(
     % dict(PN_CHARS_U=PN_CHARS_U_re, PN_CHARS=PN_CHARS_re, PLX=PLX_re),
     flags=re.X | re.UNICODE,
 )
+
+
+def _hexExpand(match):
+    return chr(int(match.group(0)[1:], 16))
+
+
+PN_LOCAL.setParseAction(lambda x: re.sub("(%s)" % PERCENT_re, _hexExpand, x[0]))
 
 
 # [141] PNAME_LN ::= PNAME_NS PN_LOCAL
@@ -409,7 +427,16 @@ BlankNode = BLANK_NODE_LABEL | ANON
 # [109] GraphTerm ::= iri | RDFLiteral | NumericLiteral | BooleanLiteral | BlankNode | NIL
 GraphTerm = iri | RDFLiteral | NumericLiteral | BooleanLiteral | BlankNode | NIL
 
+# qtSubjectOrObject = Forward()
+
+# # [174]	QuotedTP	::=	'<<' qtSubjectOrObject Verb qtSubjectOrObject '>>'
+# QuotedTp =	Suppress('<<') + qtSubjectOrObject + Verb + qtSubjectOrObject + Suppress('>>')
+
+# #[176]	qtSubjectOrObject	::=	Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral | QuotedTP
+# qtSubjectOrObject <<= Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral | QuotedTP
+
 # [106] VarOrTerm ::= Var | GraphTerm
+#VarOrTermOrQuotedTP = Var | GraphTerm | QuotedTp in rdf-star syntax [178]
 VarOrTerm = Var | GraphTerm
 
 # [107] VarOrIri ::= Var | iri
@@ -431,8 +458,71 @@ GraphOrDefault = ParamList("graph", Keyword("DEFAULT")) | Optional(
     Keyword("GRAPH")
 ) + ParamList("graph", iri)
 
+def EmbTPparseAction():
+    def parseAction(string, loc, x):
+        # print()
+        print("herer", string, loc, x[0], x)
+
+        if not type(x[0]) == rdflib.term.Variable:
+            print(x)
+            # if (not("prefix" in x[0])and (not('<' in (x[0])["localname"]))):
+            #     x0value = ":"+str(x[0]["localname"])
+            # else:
+            #     x0value = str(x[0]["prefix"])+":"+str(x[0]["localname"])
+            # setx0 = str(x[0])
+            x0value = str(x[0])
+        else:
+            # setx0 = "?"+str(x[0])
+            x0value = "?"+str(x[0]) # +"?"
+
+        if not type(x[1]) == rdflib.term.Variable:
+            # if (not("prefix" in x[1])and (not('<' in (x[1])["localname"]))):
+            #     x1value = ":"+str(x[1]["localname"])
+            # else:
+            #     x1value = str(x[1]["prefix"])+":"+str(x[1]["localname"])
+            x1value = str(x[1])
+            # setx1 = str(x[1])
+        else:
+            x1value = "?"+str(x[1]) # +"?"
+            # setx1 = "?"+str(x[1])
+
+        if not type(x[2]) == rdflib.term.Variable:
+            # if (not("prefix" in x[2])and (not('<' in (x[2])["localname"]))):
+            #     x2value = ":"+str(x[2]["localname"])
+            # else:
+            #     x2value = str(x[2]["prefix"])+":"+str(x[2]["localname"])
+            x2value = str(x[2])
+            # setx2 = str(x[2])
+        else:
+            x2value = "?"+str(x[2]) # +"?"
+            # setx2 = "?"+str(x[2])
+
+        newreturnrdfstartriple = RdfstarTriple(myHash("<<"+"<"+x0value+">"+"<"+x1value+">"+"<"+x2value+">"+">>") + "RdfstarTriple")
+        newreturnrdfstartriple.setSubject(x0value)
+        newreturnrdfstartriple.setPredicate(x1value)
+        newreturnrdfstartriple.setObject(x2value)
+        return newreturnrdfstartriple
+        # else:
+        #     return RdfstarTriple(myHash("<<"+str(x[0]["prefix"])+":"+str(x[0]["localname"])+str(x[0]["prefix"])+":"+str(x[1]["localname"])+str(x[0]["prefix"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple")
+    # RdfstarTriple(myHash("<<"+":"+str(x[0]["localname"])+":"+str(x[1]["localname"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple"
+    #              )if ((not("prefix" in x[0]))
+    #              and (not('<' in (x[0])["localname"]))) else
+    #                  RdfstarTriple(myHash("<<"+str(x[0]["prefix"])+":"+str(x[0]["localname"])+str(x[0]["prefix"])+":"+str(x[1]["localname"])+str(x[0]["prefix"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple"
+    #              )
+
+    return parseAction
+
+# Inside a values clause the EmbeddedTriple must be fully resolvable.
+KnownEmbTP = Suppress('<<') + iri + (iri | A) + (iri | RDFLiteral | NumericLiteral | BooleanLiteral) + Suppress('>>')
+# print("sadasd", PN_PREFIX)
+# KnownEmbTP.setParseAction(lambda x: RdfstarTriple(myHash("<<"+":"+str(x[0]["localname"])+":"+str(x[1]["localname"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple"
+#                  )if ((not("prefix" in x[0])) and (not('<' in x[0]["localname"]))) else
+#                      RdfstarTriple(myHash("<<"+str(x[0]["prefix"])+":"+str(x[0]["localname"])+str(x[0]["prefix"])+":"+str(x[1]["localname"])+str(x[0]["prefix"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple"
+#                  ))
+KnownEmbTP.setParseAction(EmbTPparseAction())
+
 # [65] DataBlockValue ::= iri | RDFLiteral | NumericLiteral | BooleanLiteral | 'UNDEF'
-DataBlockValue = iri | RDFLiteral | NumericLiteral | BooleanLiteral | Keyword("UNDEF")
+DataBlockValue = iri | RDFLiteral | NumericLiteral | BooleanLiteral | Keyword("UNDEF")| KnownEmbTP
 
 # [78] Verb ::= VarOrIri | A
 Verb = VarOrIri | A
@@ -451,8 +541,18 @@ TriplesNodePath = Forward()
 # [104] GraphNode ::= VarOrTerm | TriplesNode
 GraphNode = VarOrTerm | TriplesNode
 
+#Should be recursive but it is not yet so
+#VarOrBlankNodeOrIriOrLitOrEmbTP = Forward()
+#VarOrBlankNodeOrIriOrLitOrEmbTP <<= Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral | VarOrBlankNodeOrIriOrLitOrEmbTP
+VarOrBlankNodeOrIriOrLitOrEmbTP = Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral
+
+EmbTP = Suppress('<<') + VarOrBlankNodeOrIriOrLitOrEmbTP + Verb + VarOrBlankNodeOrIriOrLitOrEmbTP + Suppress('>>')
+EmbTP.setParseAction(EmbTPparseAction())
+
+VarOrTermOrEmbTP = Var | GraphTerm | EmbTP
+
 # [105] GraphNodePath ::= VarOrTerm | TriplesNodePath
-GraphNodePath = VarOrTerm | TriplesNodePath
+GraphNodePath = VarOrTermOrEmbTP | TriplesNodePath
 
 
 # [93] PathMod ::= '?' | '*' | '+'
@@ -515,6 +615,8 @@ Path <<= PathAlternative
 # [84] VerbPath ::= Path
 VerbPath = Path
 
+VarOrTermOrEmbTP = Var | GraphTerm | EmbTP
+
 # [87] ObjectPath ::= GraphNodePath
 ObjectPath = GraphNodePath
 
@@ -534,7 +636,7 @@ CollectionPath = Suppress("(") + OneOrMore(GraphNodePath) + Suppress(")")
 CollectionPath.setParseAction(expandCollection)
 
 # [80] Object ::= GraphNode
-Object = GraphNode
+Object = GraphNode | EmbTP
 
 # [79] ObjectList ::= Object ( ',' Object )*
 ObjectList = Object + ZeroOrMore("," + Object)
@@ -573,7 +675,8 @@ TriplesNode <<= Collection | BlankNodePropertyList
 TriplesNodePath <<= CollectionPath | BlankNodePropertyListPath
 
 # [75] TriplesSameSubject ::= VarOrTerm PropertyListNotEmpty | TriplesNode PropertyList
-TriplesSameSubject = VarOrTerm + PropertyListNotEmpty | TriplesNode + PropertyList
+TriplesSameSubject = VarOrTermOrEmbTP + PropertyListNotEmpty | TriplesNode + \
+    PropertyList
 TriplesSameSubject.setParseAction(expandTriples)
 
 # [52] TriplesTemplate ::= TriplesSameSubject ( '.' TriplesTemplate? )?
@@ -611,9 +714,8 @@ QuadPattern = "{" + Param("quads", Quads) + "}"
 QuadData = "{" + Param("quads", Quads) + "}"
 
 # [81] TriplesSameSubjectPath ::= VarOrTerm PropertyListPathNotEmpty | TriplesNodePath PropertyListPath
-TriplesSameSubjectPath = (
-    VarOrTerm + PropertyListPathNotEmpty | TriplesNodePath + PropertyListPath
-)
+TriplesSameSubjectPath = VarOrTermOrEmbTP + \
+    PropertyListPathNotEmpty | TriplesNodePath + PropertyListPath
 TriplesSameSubjectPath.setParseAction(expandTriples)
 
 # [55] TriplesBlock ::= TriplesSameSubjectPath ( '.' Optional(TriplesBlock) )?
@@ -1302,12 +1404,14 @@ ServiceGraphPattern = Comp(
     + Param("graph", GroupGraphPattern),
 )
 
+ExpressionOrEmbTP = Expression | EmbTP
+
 # [60] Bind ::= 'BIND' '(' Expression 'AS' Var ')'
 Bind = Comp(
     "Bind",
     Keyword("BIND")
     + "("
-    + Param("expr", Expression)
+    + Param("expr", ExpressionOrEmbTP)
     + Keyword("AS")
     + Param("var", Var)
     + ")",
@@ -1520,7 +1624,7 @@ def expandUnicodeEscapes(q):
     def expand(m):
         try:
             return chr(int(m.group(1), 16))
-        except:  # noqa: E722
+        except:
             raise Exception("Invalid unicode code point: " + m)
 
     return expandUnicodeEscapes_re.sub(expand, q)
@@ -1544,4 +1648,5 @@ def parseUpdate(q):
         q = q.decode("utf-8")
 
     q = expandUnicodeEscapes(q)
+    print('yrdy', q)
     return UpdateUnit.parseString(q, parseAll=True)[0]

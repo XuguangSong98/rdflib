@@ -5,7 +5,7 @@ These should be automatically registered with RDFLib
 
 """
 
-
+from rdflib.plugins.sparql.rdfstar_larkparser_query_and_update import Parsing_and_processing_updates, Parsing_and_processing_queries
 from rdflib.plugins.sparql.algebra import translateQuery, translateUpdate
 from rdflib.plugins.sparql.evaluate import evalQuery
 from rdflib.plugins.sparql.parser import parseQuery, parseUpdate
@@ -55,7 +55,13 @@ class SPARQLUpdateProcessor(UpdateProcessor):
     def __init__(self, graph):
         self.graph = graph
 
+    # def update_star(self, strOrQuery, initBindings={}, initNs={}):
+    #     Parsing_and_processing_updates(self.graph, strOrQuery, initBindings)
+
     def update(self, strOrQuery, initBindings={}, initNs={}):
+        if "<<" in strOrQuery or "{|" in strOrQuery:
+            strOrQuery = Parsing_and_processing_updates(strOrQuery)
+        # else:
         if isinstance(strOrQuery, str):
             strOrQuery = translateUpdate(parseUpdate(strOrQuery), initNs=initNs)
 
@@ -66,16 +72,21 @@ class SPARQLProcessor(Processor):
     def __init__(self, graph):
         self.graph = graph
 
+    # def query_star(self, strOrQuery, initBindings={}, initNs={}, base=None, DEBUG=False):
+    #     Parsing_and_processing_queries(strOrQuery)
+
     def query(self, strOrQuery, initBindings={}, initNs={}, base=None, DEBUG=False):
         """
         Evaluate a query with the given initial bindings, and initial
         namespaces. The given base is used to resolve relative URIs in
         the query and will be overridden by any BASE given in the query.
         """
-
-        if not isinstance(strOrQuery, Query):
-            parsetree = parseQuery(strOrQuery)
-            query = translateQuery(parsetree, base, initNs)
+        if "<<" in strOrQuery or "{|" in strOrQuery:
+            Parsing_and_processing_queries(strOrQuery)
         else:
-            query = strOrQuery
-        return evalQuery(self.graph, query, initBindings, base)
+            if not isinstance(strOrQuery, Query):
+                parsetree = parseQuery(strOrQuery)
+                query = translateQuery(parsetree, base, initNs)
+            else:
+                query = strOrQuery
+            return evalQuery(self.graph, query, initBindings, base)

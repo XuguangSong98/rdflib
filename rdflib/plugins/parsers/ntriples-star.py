@@ -2351,6 +2351,10 @@ class NtriplesStarParser(Parser):
                 f.close()
 
         bp = rdbytes.decode("utf-8")
+        if "<<" or "{|" in bp:
+            ou = RDFstarParsings(bp)
+        else:
+            ou = bp
         ou = RDFstarParsings(bp)
         p.feed(ou)
         p.endDoc()
