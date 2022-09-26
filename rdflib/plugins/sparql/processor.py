@@ -82,11 +82,11 @@ class SPARQLProcessor(Processor):
         the query and will be overridden by any BASE given in the query.
         """
         if "<<" in strOrQuery or "{|" in strOrQuery:
-            Parsing_and_processing_queries(strOrQuery)
+            strOrQuery = Parsing_and_processing_queries(strOrQuery)
+        # else:
+        if not isinstance(strOrQuery, Query):
+            parsetree = parseQuery(strOrQuery)
+            query = translateQuery(parsetree, base, initNs)
         else:
-            if not isinstance(strOrQuery, Query):
-                parsetree = parseQuery(strOrQuery)
-                query = translateQuery(parsetree, base, initNs)
-            else:
-                query = strOrQuery
-            return evalQuery(self.graph, query, initBindings, base)
+            query = strOrQuery
+        return evalQuery(self.graph, query, initBindings, base)

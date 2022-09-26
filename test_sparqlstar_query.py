@@ -50,24 +50,28 @@ g.parse(data="test/sparql-star-evaluation/data-1.ttl", format = "ttls")
 
 # res = g.query(rdbytes)
 
-f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-3.ru")
+f = open("test/data/sparql-star-syntax/sparql-star-annotation-01.rq")
 query_sparqlstar = f.read()
 f.close()
 # res = g.query(query_sparqlstar)
-g = Graph()
-query_sparqlstar = 'INSERT {<<<http://example.com/ns#a> ?P <http://example.com/ns#o2>>><http://example.com/ns#a><http://example.com/ns#a>. \n }WHERE{<<<http://example.com/ns#a> ?P <http://example.com/ns#o1>>><http://example.com/ns#a><http://example.com/ns#a>. \n}'
+# g = Graph()
+# query_sparqlstar = 'INSERT {<<<http://example.com/ns#a> ?P <http://example.com/ns#o2>>><http://example.com/ns#a><http://example.com/ns#a>. \n }WHERE{<<<http://example.com/ns#a> ?P <http://example.com/ns#o1>>><http://example.com/ns#a><http://example.com/ns#a>. \n}'
 # query_sparqlstar = "INSERT DATA { << <http://example.com/ns#a> <http://example.com/ns#b> <http://example.com/ns#c> >> <http://example.com/ns#p> <http://example.com/ns#o> . }"
-res = g.update(query_sparqlstar)
-for x in g.triples((None, None, None)):
-    print("rdfstar", x)
-    print(x[0].subject())
+# res = g.update(query_sparqlstar)
+# for x in g.triples((None, None, None)):
+#     print("rdfstar", x)
+#     print(x[0].subject())
+res = g.query(query_sparqlstar)
 # print(list(res))
+# res = g.query("PREFIX :       <http://example/> SELECT * {<<?s :b :c>> ?p ?o}")
+
+# # print(list(res))
 # res = g.query("PREFIX :       <http://example/> SELECT * {:s :p << :a :b 'c' >> .}")
-# print(res)
+# # print(res)
 # res = g.query("PREFIX :       <http://example/>SELECT * {<<:a ?p :c>> ?q :z .}")
-# print(list(res))
+# # print(list(res))
 # res = g.query("PREFIX :       <http://example/>SELECT * {<<:a :b ?o>> ?q :z .}")
-# print(list(res))
+# # print(list(res))
 # res = g.query("PREFIX :       <http://example/>SELECT * {<<?a ?b :nomatch >> ?q :z .}")
 # print(list(res))
 
