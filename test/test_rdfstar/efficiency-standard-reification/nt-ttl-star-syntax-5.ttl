@@ -1,0 +1,46 @@
+PREFIX : <http://example/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfstar: <https://w3id.org/rdf-star/>
+
+_:f125c8ccd4eb840f87af89fc0deac3f9RdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject <http://example/s3> ;
+    rdf:predicate <http://example/p3> ;
+    rdf:object <http://example/o3> ;
+.
+_:c668e930c66ac36ce4bc05fb3db028caRdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject <http://example/s4> ;
+    rdf:predicate <http://example/p4> ;
+    rdf:object <http://example/o4> ;
+.
+_:ab94d8a12021573bc3932082a5b58239RdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject <http://example/s1> ;
+    rdf:predicate <http://example/p1> ;
+    rdf:object <http://example/o1> ;
+.
+_:e963a20a1f0dd09b89bf5c926f04aacfRdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject <http://example/s2> ;
+    rdf:predicate <http://example/p2> ;
+    rdf:object <http://example/o2> ;
+.
+_:96b944f8dc017fb47b9b19f0f9227efaRdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject _:f125c8ccd4eb840f87af89fc0deac3f9RdfstarTriple ;
+    rdf:predicate <http://example/q3> ;
+    rdf:object _:c668e930c66ac36ce4bc05fb3db028caRdfstarTriple ;
+.
+_:14d6b424c358bf61b1171a8d9d337897RdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject _:ab94d8a12021573bc3932082a5b58239RdfstarTriple ;
+    rdf:predicate <http://example/q1> ;
+    rdf:object _:e963a20a1f0dd09b89bf5c926f04aacfRdfstarTriple ;
+.
+_:2e13796b0e18bf37d96cee936b716ffdRdfstarTriple
+    a rdfstar:AssertedStatement ;
+    rdf:subject _:14d6b424c358bf61b1171a8d9d337897RdfstarTriple ;
+    rdf:predicate <http://example/q2> ;
+    rdf:object _:96b944f8dc017fb47b9b19f0f9227efaRdfstarTriple ;
+.

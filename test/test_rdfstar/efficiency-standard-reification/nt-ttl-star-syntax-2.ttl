@@ -1,0 +1,16 @@
+PREFIX : <http://example/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfstar: <https://w3id.org/rdf-star/>
+
+_:1084179ead99530a25c26ba5310a0ac9RdfstarTriple
+    a rdfstar:QuotedStatement ;
+    rdf:subject <http://example/s> ;
+    rdf:predicate <http://example/p> ;
+    rdf:object <http://example/o> ;
+.
+_:e5612ddfd0ab1308a7a5f094773c2dbcRdfstarTriple
+    a rdfstar:AssertedStatement ;
+    rdf:subject <http://example/x> ;
+    rdf:predicate <http://example/p> ;
+    rdf:object _:1084179ead99530a25c26ba5310a0ac9RdfstarTriple ;
+.

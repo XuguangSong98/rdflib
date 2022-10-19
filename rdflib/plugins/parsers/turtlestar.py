@@ -269,9 +269,7 @@ from lark import Visitor, v_args
 quotation_list = []
 quotation_dict = dict()
 vblist = []
-quotationreif = []
 prefix_list = []
-quotationannolist = []
 constructors = ""
 assertedtriplelist = []
 quoted_or_not = False
@@ -388,7 +386,7 @@ class FindVariables(Visitor):
         vr = vr.replace(";","")
 
         quotation_dict[qut] = str(myHash(qut)) + "RdfstarTriple"
-        qut_hash = ":" + str(myHash(qut))
+        qut_hash = "_:" + str(myHash(qut))+"RdfstarTriple"
 
         id = quotation_dict.get(vr)
         for x in quotation_dict:
@@ -403,9 +401,6 @@ class FindVariables(Visitor):
                 oa1 = oa1.replace(";","")
 
                 output.append(oa1)
-
-                if (not (output in quotationreif)):
-                    quotationreif.append(output)
 
     def blank_node_property_list(self, var):
 
@@ -493,6 +488,7 @@ class FindVariables(Visitor):
             appends1.append(x1)
 
         if not (appends1 in vblist):
+            # print("anywhere?")
             vblist.append(appends1)
 
     def prefix_id(self, children):
@@ -510,10 +506,8 @@ class FindVariables(Visitor):
             raise ValueError('Unexpected @base: ' + base_directive)
 
 def RDFstarParsings(rdfstarstring):
-    global quotationannolist, vblist, quotation_dict, quotationreif, prefix_list, constructors, assertedtriplelist, quoted_or_not, both_quoted_and_asserted, to_remove, annotation_s_p_o, output, annotation_dict
-    quotationannolist = []
+    global vblist, quotation_dict, prefix_list, constructors, assertedtriplelist, quoted_or_not, both_quoted_and_asserted, to_remove, annotation_s_p_o, output, annotation_dict
     vblist = []
-    quotationreif = []
     prefix_list = []
     constructors = ""
     quoted_or_not = False
@@ -524,7 +518,7 @@ def RDFstarParsings(rdfstarstring):
     to_remove = []
     annotation_dict = dict()
     tree = turtle_lark.parse(rdfstarstring)
-
+    # print(tree)
     tt = Expandanotation().visit(tree)
 
     tree_after = Reconstructorv2(turtle_lark).reconstruct(tree)
@@ -554,41 +548,28 @@ def RDFstarParsings(rdfstarstring):
         tree_after = tree_after.replace("PREFIX:", "PREFIX :")
 
     def expand_to_rdfstar(x):
-
         global output
-
         spo = "<<"+x[0] +" "+x[1] + " " + x[2]+">>"
         try:
             if len(x[3]) == 2:
-
                 output += spo + " "+ x[3][0] +" "+x[3][1] + "." + "\n"
-
             elif len(x[3]) == 3:
-
                 output += spo + " "+ x[3][0] +" "+x[3][1] + "." + "\n"
-
                 newspolist = [spo, x[3][0],x[3][1], x[3][2]]
-
                 expand_to_rdfstar(newspolist)
             else:
                 clist = [x[3][y:y+2] for y in range(0, len(x[3]),2)]
-
-
                 for z in clist:
-
                     expand_to_rdfstar([x[0],x[1],x[2],z])
         except:
-
             pass
 
     output = ""
+    # print("test", annotation_s_p_o)
     for x in annotation_s_p_o:
-
         output +=x[0] +" "+ x[1] +" "+ x[2] + "." + "\n"
         expand_to_rdfstar(x)
-
     output_tree = tree_after+output
-
     tree = turtle_lark.parse(output_tree)
 
     at = FindVariables().visit(tree)
@@ -670,28 +651,6 @@ def RDFstarParsings(rdfstarstring):
 
                 constructors+=next_rdf_object
 
-    for z in quotationannolist:
-        result1 = "".join(z)
-        result1 = "<<"+result1+">>"
-        if result1 in quotation_list:
-            both_quoted_and_asserted = True
-        else:
-            both_quoted_and_asserted = False
-            quoted_or_not = False
-        value = str(myHash(result1))
-        subject = z[0]
-        predicate = z[1]
-        object = z[2]
-        if both_quoted_and_asserted:
-            next_rdf_object = "_:" + str(value) +"RdfstarTriple"+ '\n' + "    a rdfstar:AssertedStatement, rdfstar:QuotedStatement ;\n"+"    rdf:subject "+subject+' ;\n'+"    rdf:predicate "+predicate+" ;\n"+"    rdf:object "+object+" ;\n"+".\n"
-        else:
-            if quoted_or_not:
-                next_rdf_object = "_:" + str(value) +"RdfstarTriple"+ '\n' + "    a rdfstar:QuotedStatement ;\n"+"    rdf:subject "+subject+' ;\n'+"    rdf:predicate "+predicate+" ;\n"+"    rdf:object "+object+" ;\n"+".\n"
-            else:
-                next_rdf_object = "_:" + str(value) +"RdfstarTriple"+ '\n' + "    a rdfstar:AssertedStatement ;\n"+"    rdf:subject "+subject+' ;\n'+"    rdf:predicate "+predicate+" ;\n"+"    rdf:object "+object+" ;\n"+".\n"
-
-        constructors+=next_rdf_object
-
     for x in range(0, len(prefix_list)):
 
         prefix_list[x] = Reconstructor(turtle_lark).reconstruct(prefix_list[x])
@@ -708,7 +667,7 @@ def RDFstarParsings(rdfstarstring):
     if "PREFIX:" in constructors:
         constructors = constructors.replace("PREFIX:", "PREFIX :")
 
-    print("input after preprocessing: ", constructors)
+    # print("input after preprocessing: ", constructors)
     constructors = bytes(constructors, 'utf-8')
     return constructors
 
@@ -841,12 +800,14 @@ class StarsinkParser(SinkParser):
         if quoted_triple_list[0] == rdflib.term.URIRef('https://w3id.org/rdf-star/AssertedStatement'):
             if quoted_triple_list[1] == rdflib.term.URIRef('https://w3id.org/rdf-star/QuotedStatement'):
                 if dira == "->":
+                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[4], quoted_triple_list[3], quoted_triple_list[5]))
                     quoted_triple_list[2].setSubject(quoted_triple_list[3])
                     quoted_triple_list[2].setPredicate(quoted_triple_list[4])
                     quoted_triple_list[2].setObject(quoted_triple_list[5])
 
                 else:
+                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[4], quoted_triple_list[5], quoted_triple_list[3]))
                     # quoted_triple_list[2].setSubject(quoted_triple_list[3])
                     # quoted_triple_list[2].setPredicate(quoted_triple_list[4])
@@ -857,8 +818,10 @@ class StarsinkParser(SinkParser):
 
             else:
                 if dira == "->":
+                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[2], quoted_triple_list[1], quoted_triple_list[3]))
                 else:
+                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[2], quoted_triple_list[3], quoted_triple_list[1]))
         else:
             if dira == "->":
@@ -928,9 +891,10 @@ class StarsinkParser(SinkParser):
                         self.addingquotedRdfstarTriple(quoted_triple_list, dira)
                 else:
                     if dira == "->":
-                        # print("tests ->", self._context, sym, subj, obj)
+                        print("make")
                         self.makeStatement((self._context, sym, subj, obj))
                     else:
+                        print("make")
                         self.makeStatement((self._context, sym, obj, subj))
 
             j = self.skipSpace(argstr, i)

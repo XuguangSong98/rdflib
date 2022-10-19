@@ -355,7 +355,7 @@ class TurtlestarSerializer(Serializer):
                                         for x in blanknode_dictionary[object]:
                                             object_node = "_:" + str(object)
                                             output = object_node + x[0] + x[1] + ". \n"
-                                            print("what", output)
+                                            # print("what", output)
                                             if output is not None:
 
                                                 stream.write(output.encode())

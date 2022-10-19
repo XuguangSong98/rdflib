@@ -66,7 +66,7 @@ __all__ = [
     "RDFSink",
     "SinkParser",
 ]
-
+counter = 0
 from rdflib.parser import Parser
 
 if TYPE_CHECKING:
@@ -370,6 +370,8 @@ class SinkParser:
         why: Optional[Callable[[], None]] = None,
         turtle: bool = False,
     ):
+        global counter
+        counter = 0
         """note: namespace names should *not* end in  # ;
         the  # will get added during qname processing"""
 
@@ -1070,6 +1072,7 @@ class SinkParser:
         return -1
 
     def property_list(self, argstr: str, i: int, subj):
+        global counter
         """Parse property list
         Leaves the terminating punctuation in the buffer
         """
@@ -1107,8 +1110,12 @@ class SinkParser:
             for obj in objs:
                 dira, sym = v[0]
                 if dira == "->":
+                    counter +=1
+                    print("make", counter)
                     self.makeStatement((self._context, sym, subj, obj))
                 else:
+                    counter +=1
+                    print("make", counter)
                     self.makeStatement((self._context, sym, obj, subj))
 
             j = self.skipSpace(argstr, i)

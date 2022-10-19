@@ -513,6 +513,7 @@ def EmbTPparseAction():
     return parseAction
 
 # Inside a values clause the EmbeddedTriple must be fully resolvable.
+KnownEmbTP = Forward()
 KnownEmbTP = Suppress('<<') + iri + (iri | A) + (iri | RDFLiteral | NumericLiteral | BooleanLiteral) + Suppress('>>')
 # print("sadasd", PN_PREFIX)
 # KnownEmbTP.setParseAction(lambda x: RdfstarTriple(myHash("<<"+":"+str(x[0]["localname"])+":"+str(x[1]["localname"])+":"+str(x[2]["localname"])+">>") + "RdfstarTriple"
@@ -546,6 +547,7 @@ GraphNode = VarOrTerm | TriplesNode
 #VarOrBlankNodeOrIriOrLitOrEmbTP <<= Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral | VarOrBlankNodeOrIriOrLitOrEmbTP
 VarOrBlankNodeOrIriOrLitOrEmbTP = Var | BlankNode | iri | RDFLiteral | NumericLiteral | BooleanLiteral
 
+EmbTP = Forward()
 EmbTP = Suppress('<<') + VarOrBlankNodeOrIriOrLitOrEmbTP + Verb + VarOrBlankNodeOrIriOrLitOrEmbTP + Suppress('>>')
 EmbTP.setParseAction(EmbTPparseAction())
 

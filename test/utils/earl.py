@@ -9,6 +9,7 @@ from pathlib import Path
 from test.utils import GraphHelper
 from test.utils.dawg_manifest import ManifestEntry
 from test.utils.namespace import EARL, MF, RDFT
+from collections import OrderedDict
 from typing import (
     TYPE_CHECKING,
     Callable,
@@ -16,7 +17,6 @@ from typing import (
     Generator,
     List,
     Optional,
-    OrderedDict,
     Set,
     Tuple,
     TypeVar,
