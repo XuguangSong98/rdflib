@@ -9,15 +9,7 @@ _:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple
     rdf:predicate :p ;
     rdf:object :o ;
 .
-_:66ccf0120979d303508d0c0e41edb1bfRdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple ;
-    rdf:predicate :source ;
-    rdf:object [:graph<http://host1/>;:date"2020-01-20"^^xsd:date] ;
-.
-_:b3758f20fbcd74e23c8541d0b1945f26RdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple ;
-    rdf:predicate :source ;
-    rdf:object [:graph<http://host2/>;:date"2020-12-31"^^xsd:date] ;
-.
+
+_:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple :source [:graph<http://host1/>;:date"2020-01-20"^^xsd:date] .
+
+_:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple :source [:graph<http://host2/>;:date"2020-12-31"^^xsd:date] .

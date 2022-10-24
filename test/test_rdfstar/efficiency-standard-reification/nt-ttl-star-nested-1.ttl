@@ -14,9 +14,5 @@ _:0ef8ec37de77ad71aa756ba1d05a10c4RdfstarTriple
     rdf:predicate <http://example/r> ;
     rdf:object <http://example/z> ;
 .
-_:5020c89180b1998e09d18d59d5f54a2bRdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:0ef8ec37de77ad71aa756ba1d05a10c4RdfstarTriple ;
-    rdf:predicate <http://example/q> ;
-    rdf:object "1"^^<http://www.w3.org/2001/XMLSchema#integer> ;
-.
+
+_:0ef8ec37de77ad71aa756ba1d05a10c4RdfstarTriple <http://example/q> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .

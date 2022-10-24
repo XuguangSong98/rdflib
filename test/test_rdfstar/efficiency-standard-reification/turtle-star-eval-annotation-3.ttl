@@ -20,21 +20,9 @@ _:960e5bfa0cf17f858d4afa669520eafdRdfstarTriple
     rdf:predicate :p2 ;
     rdf:object :o3 ;
 .
-_:f768b2493ce5955e54a14295c5cca7b9RdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple ;
-    rdf:predicate :a ;
-    rdf:object :b ;
-.
-_:2119a68fc1c880dda11e0c06235b1eddRdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:0a7cda9d33fb3968000c3149e9a0b256RdfstarTriple ;
-    rdf:predicate :a2 ;
-    rdf:object :b2 ;
-.
-_:b7cbab0f387fb9c04d1e31bd87ffbcf2RdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:960e5bfa0cf17f858d4afa669520eafdRdfstarTriple ;
-    rdf:predicate :a3 ;
-    rdf:object :b3 ;
-.
+
+_:b3f5e185425e8b59dc2f2c4178794ea6RdfstarTriple :a :b .
+
+_:0a7cda9d33fb3968000c3149e9a0b256RdfstarTriple :a2 :b2 .
+
+_:960e5bfa0cf17f858d4afa669520eafdRdfstarTriple :a3 :b3 .

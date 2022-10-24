@@ -8,9 +8,5 @@ _:63734a2d7743cf4120e19958274cf28fRdfstarTriple
     rdf:predicate :p ;
     rdf:object  _:a ;
 .
-_:4914e25787b081c86852870fe7e9168bRdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:63734a2d7743cf4120e19958274cf28fRdfstarTriple ;
-    rdf:predicate :q ;
-    rdf:object 456 ;
-.
+
+_:63734a2d7743cf4120e19958274cf28fRdfstarTriple :q 456 .

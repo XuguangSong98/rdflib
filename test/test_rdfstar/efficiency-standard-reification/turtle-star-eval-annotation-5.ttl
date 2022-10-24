@@ -14,9 +14,5 @@ _:b46681f13f875998439946e924f777ceRdfstarTriple
     rdf:predicate :p ;
     rdf:object :o1 ;
 .
-_:eb8181629f65126471187f2b821aa36bRdfstarTriple
-    a rdfstar:AssertedStatement ;
-    rdf:subject _:8493309d972b1795a017369def36fafeRdfstarTriple ;
-    rdf:predicate :a ;
-    rdf:object :b ;
-.
+
+_:8493309d972b1795a017369def36fafeRdfstarTriple :a :b .
