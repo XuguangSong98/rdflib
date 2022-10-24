@@ -668,9 +668,9 @@ def Parsing_and_processing_updates(query):
     sparql_lark = Lark(grammar2, start="updateunit", parser="lalr", maybe_placeholders=False)
 
     from lark import Visitor, v_args
-    print("query", query)
+    # print("query", query)
     tree = sparql_lark.parse(query)
-    print("tree", tree)
+    # print("tree", tree)
     quotation_dict = []
     quotationreif = []
     prefix_dictionary = dict()
@@ -693,13 +693,13 @@ def Parsing_and_processing_updates(query):
         def triplessamesubject(self, var):
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
-                print("twsetstse", annotation_dict)
+                # print("twsetstse", annotation_dict)
                 print(Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas", Reconstructor(sparql_lark).reconstruct(var.children[1]))
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
                 subject = Reconstructor(sparql_lark).reconstruct(var.children[0])
-                print("subject",subject )
+                # print("subject",subject )
                 po_list = []
                 predicate_objects = predicate_object_list2.children
                 for x in range(0, len(predicate_objects)):
@@ -739,13 +739,13 @@ def Parsing_and_processing_updates(query):
         def triplessamesubjectpath(self, var):
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
-                print("tblock", annotation_dict)
+                # print("tblock", annotation_dict)
                 print(var.children[0],Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas")#
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
                 subject = Reconstructor(sparql_lark).reconstruct(var.children[0])
-                print("subject",subject )
+                # print("subject",subject )
                 po_list = []
                 predicate_objects = predicate_object_list2.children
                 for x in range(0, len(predicate_objects)):
@@ -787,7 +787,7 @@ def Parsing_and_processing_updates(query):
             tri2 = Reconstructor(sparql_lark).reconstruct(var)
             for x in var.children[0].children:
                 test = Reconstructor(sparql_lark).reconstruct(x)
-                print("test", test)
+                # print("test", test)
                 if "{|" in test:
                     test123 = test.split("{|",1)
                     object = test123[0]
@@ -922,7 +922,7 @@ def Parsing_and_processing_updates(query):
     tt = Expandanotation().visit(tree)
 
     tree_after = Reconstructor(sparql_lark).reconstruct(tree)
-    print("asdasdasdasdas", to_remove, annotation_s_p_o)
+    # print("asdasdasdasdas", to_remove, annotation_s_p_o)
     splittree_after = tree_after.split(">")
 
     PREFIX_substitute = dict()
@@ -963,15 +963,15 @@ def Parsing_and_processing_updates(query):
         if not y in substitudedict:
             substitudedict[y] = output
         output = ""
-    print(to_remove)
+    # print(to_remove)
     for z in substitudedict:
-        print("substitudedict", z)
+        # print("substitudedict", z)
         tree_after = tree_after.replace(z, substitudedict[z])
-        print("substitudedict", tree_after)
+        # print("substitudedict", tree_after)
 
     output_tree = tree_after
 
-    print("test output tree", output_tree)
+    # print("test output tree", output_tree)
 
     # tree = sparql_lark.parse(output_tree)
     # tt = Process_update().visit(tree)
@@ -983,9 +983,9 @@ def Parsing_and_processing_queries(query):
     sparql_lark = Lark(grammar2, start="query", parser="lalr", maybe_placeholders=False)
 
     from lark import Visitor, v_args
-    print("query", query)
+    # print("query", query)
     tree = sparql_lark.parse(query)
-    print("tree", tree)
+    # print("tree", tree)
     quotation_dict = []
     quotationreif = []
     prefix_dictionary = dict()
@@ -1008,13 +1008,13 @@ def Parsing_and_processing_queries(query):
         def triplessamesubject(self, var):
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
-                print("twsetstse", annotation_dict)
-                print(Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas", Reconstructor(sparql_lark).reconstruct(var.children[1]))
+                # print("twsetstse", annotation_dict)
+                # print(Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas", Reconstructor(sparql_lark).reconstruct(var.children[1]))
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
                 subject = Reconstructor(sparql_lark).reconstruct(var.children[0])
-                print("subject",subject )
+                # print("subject",subject )
                 po_list = []
                 predicate_objects = predicate_object_list2.children
                 for x in range(0, len(predicate_objects)):
@@ -1052,16 +1052,16 @@ def Parsing_and_processing_queries(query):
                     to_remove[tri] = spo_list
 
         def triplessamesubjectpath(self, var):
-            print("annotation_dict", annotation_dict)
+            # print("annotation_dict", annotation_dict)
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
-                print("tblock", annotation_dict)
+                # print("tblock", annotation_dict)
                 print(var.children[0],Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas")#
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
                 subject = Reconstructor(sparql_lark).reconstruct(var.children[0])
-                print("subject",subject )
+                # print("subject",subject )
                 po_list = []
                 predicate_objects = predicate_object_list2.children
                 for x in range(0, len(predicate_objects)):
@@ -1103,7 +1103,7 @@ def Parsing_and_processing_queries(query):
             tri2 = Reconstructor(sparql_lark).reconstruct(var)
             for x in var.children[0].children:
                 test = Reconstructor(sparql_lark).reconstruct(x)
-                print("test", test)
+                # print("test", test)
                 if "{|" in test:
                     test123 = test.split("{|",1)
                     object = test123[0]
@@ -1125,7 +1125,7 @@ def Parsing_and_processing_queries(query):
             tri2 = Reconstructor(sparql_lark).reconstruct(var)
             for x in var.children[0].children:
                 test = Reconstructor(sparql_lark).reconstruct(x)
-                print("test", test)
+                # print("test", test)
                 if "{|" in test:
                     test123 = test.split("{|",1)
                     object = test123[0]
@@ -1196,7 +1196,7 @@ def Parsing_and_processing_queries(query):
     tt = Expandanotation().visit(tree)
 
     tree_after = Reconstructor(sparql_lark).reconstruct(tree)
-    print("asdasdasdasdas", to_remove, annotation_s_p_o)
+    # print("asdasdasdasdas", to_remove, annotation_s_p_o)
     splittree_after = tree_after.split(">")
 
     PREFIX_substitute = dict()
@@ -1237,15 +1237,15 @@ def Parsing_and_processing_queries(query):
         if not y in substitudedict:
             substitudedict[y] = output
         output = ""
-    print(to_remove)
+    # print(to_remove)
     for z in substitudedict:
-        print("substitudedict", z)
+        # print("substitudedict", z)
         tree_after = tree_after.replace(z, substitudedict[z])
-        print("substitudedict", tree_after)
+        # print("substitudedict", tree_after)
 
     output_tree = tree_after
 
-    print("test output tree", output_tree)
+    # print("test output tree", output_tree)
 
     return output_tree
     # res = g.query("SELECT * { <<:a :b :c>> ?p ?o }")

@@ -83,6 +83,7 @@ class SPARQLProcessor(Processor):
         """
         if "<<" in strOrQuery or "{|" in strOrQuery:
             strOrQuery = Parsing_and_processing_queries(strOrQuery)
+            # print("after", strOrQuery)
         # else:
         if not isinstance(strOrQuery, Query):
             parsetree = parseQuery(strOrQuery)

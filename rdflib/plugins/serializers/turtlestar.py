@@ -290,87 +290,87 @@ class TurtlestarSerializer(Serializer):
 
             for s,p,o in g.triples((None, None, None)):
 
-                if s in blanknode_dictionary:
+                # if s in blanknode_dictionary:
 
-                    re1 = False
-                    re2 = False
-                    if len(blanknode_dictionary[s]) < 4:
+                #     re1 = False
+                #     re2 = False
+                #     if len(blanknode_dictionary[s]) < 4:
 
-                        re2 = True
+                #         re2 = True
 
-                else:
-                    re2 = False
-                    re1 = True
+                # else:
+                #     re2 = False
+                #     re1 = True
 
-                if re1 or re2:
+                # if re1 or re2:
 
-                    if("http://www.w3.org/1999/02/22-rdf-syntax-ns#first" in p or "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest" in p):
+                    # if("http://www.w3.org/1999/02/22-rdf-syntax-ns#first" in p or "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest" in p):
 
-                        pass
+                    #     pass
 
+                    # else:
+
+                subject = s
+                predicate = p
+                object = o
+
+
+                properties = []
+                collection_or_not = False
+                quoted_Bnode_or_not = False
+
+                if (isinstance(subject, rdflib.term.URIRef)):
+
+                    subject = "<"+str(subject)+">"
+                elif isinstance(subject, rdflib.term.Literal):
+                    subject = subject._literal_n3(use_plain=True)
+                elif (isinstance(subject, rdflib.term.BNode) or isinstance(subject, rdflib.term.RdfstarTriple)):
+                    if isinstance(subject, rdflib.term.RdfstarTriple):
+                        subject = dictionary[subject]
                     else:
+                        if (subject in blanknode_dictionary):
+                            if(len(blanknode_dictionary[subject])>2):
+                                for x in blanknode_dictionary[subject]:
+                                    subject_node = "_:"+str(subject)
+                                    output =subject_node + x[0] + x[1]+". \n"
+                                    if output is not None:
+                                        stream.write(output.encode())
 
-                        subject = s
-                        predicate = p
-                        object = o
+                        subject = " _:"+subject
 
-
-                        properties = []
-                        collection_or_not = False
-                        quoted_Bnode_or_not = False
-
-                        if (isinstance(subject, rdflib.term.URIRef)):
-
-                            subject = "<"+str(subject)+">"
-                        elif isinstance(subject, rdflib.term.Literal):
-                            subject = subject._literal_n3(use_plain=True)
-                        elif (isinstance(subject, rdflib.term.BNode) or isinstance(subject, rdflib.term.RdfstarTriple)):
-                            if isinstance(subject, rdflib.term.RdfstarTriple):
-                                subject = dictionary[subject]
-                            else:
-                                if (subject in blanknode_dictionary):
-                                    if(len(blanknode_dictionary[subject])>2):
-                                        for x in blanknode_dictionary[subject]:
-                                            subject_node = "_:"+str(subject)
-                                            output =subject_node + x[0] + x[1]+". \n"
-                                            if output is not None:
-                                                stream.write(output.encode())
-
-                                subject = " _:"+subject
-
-                            properties = []
+                    properties = []
 
 
-                        if (isinstance(object, rdflib.term.URIRef)):
-                            object = "<"+str(object)+">"
-                        elif isinstance(object, rdflib.term.Literal):
-                            object = object._literal_n3(use_plain=True)
-                        elif (isinstance(object, rdflib.term.BNode) or isinstance(object, rdflib.term.RdfstarTriple)):
-                            thenode_id = str(object)
-                            if isinstance(object, rdflib.term.RdfstarTriple):
-                                object = dictionary[object]
-                            else:
-                                if (object in blanknode_dictionary):
-                                    if(len(blanknode_dictionary[object])>2):
-                                        for x in blanknode_dictionary[object]:
-                                            object_node = "_:" + str(object)
-                                            output = object_node + x[0] + x[1] + ". \n"
-                                            # print("what", output)
-                                            if output is not None:
+                if (isinstance(object, rdflib.term.URIRef)):
+                    object = "<"+str(object)+">"
+                elif isinstance(object, rdflib.term.Literal):
+                    object = object._literal_n3(use_plain=True)
+                elif (isinstance(object, rdflib.term.BNode) or isinstance(object, rdflib.term.RdfstarTriple)):
+                    thenode_id = str(object)
+                    if isinstance(object, rdflib.term.RdfstarTriple):
+                        object = dictionary[object]
+                    else:
+                        if (object in blanknode_dictionary):
+                            if(len(blanknode_dictionary[object])>2):
+                                for x in blanknode_dictionary[object]:
+                                    object_node = "_:" + str(object)
+                                    output = object_node + x[0] + x[1] + ". \n"
+                                    # print("what", output)
+                                    if output is not None:
 
-                                                stream.write(output.encode())
+                                        stream.write(output.encode())
 
-                                object = " _:"+object
+                        object = " _:"+object
 
-                            properties = []
+                    properties = []
 
-                        if(isinstance(predicate, rdflib.term.URIRef)):
-                            predicate = "<"+str(predicate)+">"
+                if(isinstance(predicate, rdflib.term.URIRef)):
+                    predicate = "<"+str(predicate)+">"
 
-                        output = subject+" "+predicate+" "+object+ " ."+"\n"
+                output = subject+" "+predicate+" "+object+ " ."+"\n"
 
-                        if output is not None:
-                            stream.write(output.encode())
+                if output is not None:
+                    stream.write(output.encode())
 
     def _iri_or_bn(self, i_):
         if isinstance(i_, URIRef):

@@ -36,6 +36,8 @@ register(
     "TurtlestarSerializer"
 )
 
+#  ....FFF.FFFFFF..FFFF.FFFFFFFFF..FFFFF.F
+
 # g = Graph()
 # g.parse(data="test/sparql-star-evaluation/data-1.ttl", format = "ttls")
 # for x in g.triples((None, None, None)):
@@ -46,7 +48,7 @@ register(
 # print(sys.path[0] + '/../../../test/data/sparql-star/sparql-star-annotation-01.rq')
 
 # tests should be past
-def test_SPARQLSTARPositiveSyntax_subject2():
+def test_SPARQLSTARPositiveSyntax_subject2(): # 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-basic-01.rq")
     query_sparqlstar = f.read()
@@ -55,7 +57,7 @@ def test_SPARQLSTARPositiveSyntax_subject2():
     # print(list(res))
     assert isinstance(g, Graph)
 
-def test_TurtlePositiveSyntax_subject3():
+def test_TurtlePositiveSyntax_subject3(): # 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-basic-02.rq")
     query_sparqlstar = f.read()
@@ -64,7 +66,7 @@ def test_TurtlePositiveSyntax_subject3():
     # print(list(res))
     assert isinstance(g, Graph)
 
-def test_TurtlePositiveSyntax_subject4():
+def test_TurtlePositiveSyntax_subject4(): # 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-basic-03.rq")
     query_sparqlstar = f.read()
@@ -72,7 +74,7 @@ def test_TurtlePositiveSyntax_subject4():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject5():
+def test_TurtlePositiveSyntax_subject5(): # 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-basic-04.rq")
     query_sparqlstar = f.read()
@@ -104,7 +106,7 @@ def test_TurtlePositiveSyntax_subject8():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject9():
+def test_TurtlePositiveSyntax_subject9(): # 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-inside-01.rq")
     query_sparqlstar = f.read()
@@ -160,7 +162,7 @@ def test_TurtlePositiveSyntax_subject15():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject16():
+def test_TurtlePositiveSyntax_subject16():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bnode-03.rq")
     query_sparqlstar = f.read()
@@ -168,7 +170,7 @@ def test_TurtlePositiveSyntax_subject16():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject17():
+def test_TurtlePositiveSyntax_subject17():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-annotation-01.rq")
     query_sparqlstar = f.read()
@@ -208,7 +210,7 @@ def test_TurtlePositiveSyntax_subject21():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject22():
+def test_TurtlePositiveSyntax_subject22():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-annotation-06.rq")
     query_sparqlstar = f.read()
@@ -288,7 +290,7 @@ def test_TurtlePositiveSyntax_subject31():
     res = g.query(query_sparqlstar)
     # print(list(res))
     assert isinstance(g, Graph)
-def test_TurtlePositiveSyntax_subject38():
+def test_TurtlePositiveSyntax_subject38():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
     query_sparqlstar = f.read()
@@ -296,7 +298,7 @@ def test_TurtlePositiveSyntax_subject38():
     res = g.update(query_sparqlstar)
     # print(list(res))
     assert True
-def test_TurtlePositiveSyntax_subject39():
+def test_TurtlePositiveSyntax_subject39():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-2.ru")
     query_sparqlstar = f.read()
@@ -344,7 +346,7 @@ def test_TurtlePositiveSyntax_subject44():
     res = g.update(query_sparqlstar)
     # print(list(res))
     assert True
-def test_TurtlePositiveSyntax_subject45():
+def test_TurtlePositiveSyntax_subject45():# 1
     g = Graph()
     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-8.ru")
     query_sparqlstar = f.read()
@@ -352,310 +354,310 @@ def test_TurtlePositiveSyntax_subject45():
     res = g.update(query_sparqlstar)
     # print(list(res))
     assert True
-# def test_TurtlePositiveSyntax_subject():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     res = g.query(query_sparqlstar)
-#     # print(list(res))
-#     assert isinstance(g, Graph)
-# def test_TurtlePositiveSyntax_subject():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     res = g.query(query_sparqlstar)
-#     # print(list(res))
-#     assert isinstance(g, Graph)
-# def test_TurtlePositiveSyntax_subject():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     res = g.query(query_sparqlstar)
-#     # print(list(res))
-#     assert isinstance(g, Graph)
+def test_TurtlePositiveSyntax_subject():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    res = g.update(query_sparqlstar)
+    # print(list(res))
+    assert isinstance(g, Graph)
+def test_TurtlePositiveSyntax_subject():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    res = g.query(query_sparqlstar)
+    # print(list(res))
+    assert isinstance(g, Graph)
+def test_TurtlePositiveSyntax_subject():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-update-1.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    res = g.query(query_sparqlstar)
+    # print(list(res))
+    assert isinstance(g, Graph)
 # tests should be broken
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate46():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-01.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate46():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-01.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate47():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-02.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate47():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-02.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate48():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-03.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate48():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-03.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate49():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-04.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate49():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-04.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate50():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-05.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate50():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-05.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate51():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-06.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate51():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-06.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate52():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-07.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate52():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-07.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate53():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-08.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate53():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-08.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate54():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-09.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate54():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-09.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate55():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-10.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate55():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-10.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate56():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-11.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate56():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-11.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate57():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-12.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate57():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-12.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate58():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-1.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate58():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-1.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate59():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-1.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate59():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-1.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate60():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-2.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate60():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-2.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate61():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-3.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate61():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-3.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate62():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-4.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate62():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-4.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate63():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-5.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate63():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-5.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate64():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-6.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate64():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-6.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate65():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-7.rq")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate65():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-ann-path-7.rq")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate66():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-1.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate66():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-1.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate67():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-2.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate67():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-2.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate68():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-3.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate68():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-3.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
-# def test_TurtleNegativeSyntax_Badquotedtripleaspredicate69():
-#     g = Graph()
-#     f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-4.ru")
-#     query_sparqlstar = f.read()
-#     f.close()
-#     try:
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
+def test_TurtleNegativeSyntax_Badquotedtripleaspredicate69():
+    g = Graph()
+    f = open("test/data/sparql-star-syntax/sparql-star-syntax-bad-update-4.ru")
+    query_sparqlstar = f.read()
+    f.close()
+    try:
 
-#         res = g.query(query_sparqlstar)
-#         assert isinstance(g, Graph)
-#     except:
-#         pytest.xfail("Bad quoted triple literal subject")
+        res = g.query(query_sparqlstar)
+        assert isinstance(g, Graph)
+    except:
+        pytest.xfail("Bad quoted triple literal subject")
 
 if __name__ == "__main__":
     pytest.main()

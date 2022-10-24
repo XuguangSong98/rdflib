@@ -95,19 +95,19 @@ def evalBGP(
     # _s.setSubject("http://example/a")
     # _s.setPredicate("http://example/b")
     # _s.setObject("http://example/c")
-    print("324324", _s.subject())
-    print("ctx_s_p_o", _s, _p, _o)
-    print("hello", ctx.graph.triples((None, None, None)), ctx.solution())
+    # print("324324", _s.subject())
+    # print("ctx_s_p_o", _s, _p, _o)
+    # print("hello", ctx.graph.triples((None, None, None)), ctx.solution())
     for x,y,z in ctx.graph.triples((None, None, None)):
         # print(str(x), str(_s))
-        print("saddasdasdadasd", x ,y ,z)
-        print("testing\n", str(x.subject()), str(_s.subject()))
+        # print("saddasdasdadasd", x ,y ,z)
+        # print("testing\n", str(x.subject()), str(_s.subject()))
 
-        print(type(x), type(_s))
+        # print(type(x), type(_s))
         # if type(x) == rdflib.term.RdfstarTriple & type(_s) == rdflib.term.RdfstarTriple:
         if isinstance(x, rdflib.term.RdfstarTriple) & isinstance(_s, rdflib.term.RdfstarTriple):
             if (comparetriples(x, _s)):
-                print("dualsdaulsd")
+                # print("dualsdaulsd")
                 _s = x
         # if (str(x.subject())==str(_s.subject())):
         #     _s = x
@@ -116,10 +116,10 @@ def evalBGP(
         #         _o = z
         if isinstance(z, rdflib.term.RdfstarTriple) & isinstance(_o, rdflib.term.RdfstarTriple):
             if (comparetriples(z, _o)):
-                print("dualsdaulsd")
+                # print("dualsdaulsd")
                 _o = z
     for ss, sp, so in ctx.graph.triples((_s, _p, _o)):
-        print("ssspso", ss, sp, so)
+        # print("ssspso", ss, sp, so)
         if None in (_s, _p, _o):
             c = ctx.push()
         else:

@@ -19,50 +19,58 @@ from rdflib import URIRef
 from rdflib.namespace import RDF
 from rdflib.namespace import FOAF
 
-g = Graph()
-g.parse(data="test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-01.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
 
 g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-02.ttl", format = "ttls")
+g.parse("test/test_rdfstar/turtle-star/turtle-star-syntax-inside-02.ttl", format = "ttls")
 print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-bnode-1.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse(data="test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-01.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-bnode-2.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-1.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-02.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-2.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-3.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-bnode-1.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-4.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-5.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-bnode-2.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-1.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-1.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-2.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-2.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
 
-g = Graph()
-g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-3.ttl", format = "ttls")
-print(g.serialize(format = "ttlstar"))
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-3.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
+
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-4.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
+
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-annotation-5.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
+
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-1.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
+
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-2.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
+
+# g = Graph()
+# g.parse("test/test_rdfstar/turtlestar-evaluation/turtle-star-eval-quoted-annotation-3.ttl", format = "ttls")
+# print(g.serialize(format = "ttlstar"))
