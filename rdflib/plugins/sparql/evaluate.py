@@ -51,28 +51,69 @@ _Triple = Tuple[Identifier, Identifier, Identifier]
 
 def comparetriples(rdfs1, rdfs2with_):
     strx = str(rdfs1.subject()).strip()
-    strs = str(rdfs2with_.subject()).strip()
+    strs = rdfs2with_.subject()#
+    strs1 = str(rdfs2with_.subject()).strip() #
 
     strxp = str(rdfs1.predicate()).strip()
-    strsp = str(rdfs2with_.predicate()).strip()
+    strsp = rdfs2with_.predicate()#
+    strsp1 = str(rdfs2with_.predicate()).strip() #
 
     strxo = str(rdfs1.object()).strip()
-    strso = str(rdfs2with_.object()).strip()
+    strso = rdfs2with_.object()#
+    strso1 = str(rdfs2with_.object()).strip() #
 
     sequals = False
     pequals = False
     objectequals = False
 
-    if "?" in strs or (strs == strx):
+    variable_s_ = False
+    variable_p_ = False
+    variable_o_ = False
+
+    output_quoted_s = None
+    output_quoted_p = None
+    output_quoted_o = None #
+
+    # if type(strs): # type ##
+    if isinstance(strs, rdflib.term.Variable):
+        sequals = True
+        variable_s_ = True
+
+    if(strs1 == strx):
         sequals = True
 
-    if "?" in strsp or (strsp == strxp):
+    if  isinstance(strsp, rdflib.term.Variable):
+        pequals = True
+        variable_p_ = True
+
+    if (strsp1 == strxp):
         pequals = True
 
-    if "?" in strso or (strso == strxo):
+    if isinstance(strso, rdflib.term.Variable):
+        objectequals = True
+        variable_o_ = True
+
+    if (strso1 == strxo):
         objectequals = True
 
-    return sequals & pequals & objectequals
+    if (sequals & pequals & objectequals):
+        if variable_s_:
+            output_quoted_s = rdfs1.subject()
+            # c = ctx.push()
+            # c[rdfs2with_.subject()] = output_quoted_s
+        if variable_p_:
+            output_quoted_p = rdfs1.predicate()
+            # c = ctx.push()
+            # c[rdfs2with_.predicate()] = output_quoted_p
+        if variable_o_:
+            output_quoted_o = rdfs1.object()
+            # c = ctx.push()
+            # c[rdfs2with_.object()] = output_quoted_o
+
+        print("asdasdasdsa", (rdfs2with_.subject(), output_quoted_s), output_quoted_s, output_quoted_p, output_quoted_o)
+
+
+    return sequals & pequals & objectequals, (rdfs2with_.subject(), output_quoted_s), (rdfs2with_.predicate(), output_quoted_p),(rdfs2with_.object(), output_quoted_o)
 
 def evalBGP(
     ctx: QueryContext, bgp: List[_Triple]
@@ -80,8 +121,9 @@ def evalBGP(
     """
     A basic graph pattern
     """
-
+    pushed = False
     if not bgp:
+        # print("asdawtawtawwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", bgp)
         yield ctx.solution()
         return
 
@@ -106,41 +148,115 @@ def evalBGP(
         # print(type(x), type(_s))
         # if type(x) == rdflib.term.RdfstarTriple & type(_s) == rdflib.term.RdfstarTriple:
         if isinstance(x, rdflib.term.RdfstarTriple) & isinstance(_s, rdflib.term.RdfstarTriple):
-            if (comparetriples(x, _s)):
+            equalquoted, s1, p1 ,o1 = comparetriples(x, _s)
+            if (equalquoted):#c12121212121121121211212121
                 # print("dualsdaulsd")
                 _s = x
+
+                if s1[1] != None:
+                    # print("\n\nAsddasd",s1)
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[s1[0]] = s1[1]
+                        # ctx[s1[0]] = s1[1]
+                    else:
+                        c[s1[0]] = s1[1]
+                    # for x in evalBGP(c, bgp[1:]):
+                    #     print("evaluation", x, c, bgp[1:])
+                    #     yield x
+
+                if p1[1] != None:
+                    # print("\n\nAsddasd1",p1)
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[p1[0]] = p1[1]
+                        # ctx[p1[0]] = p1[1]
+                    else:
+                        c[p1[0]] = p1[1]
+                    # for x in evalBGP(c, bgp[1:]):
+                    #     print("evaluation", x, c, bgp[1:])
+                    #     yield x
+                if o1[1] != None:
+                    # print("\n\nAsddasd2",o1)
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[o1[0]] = o1[1]
+                        # ctx[o1[0]] = o1[1]
+                    else:
+                    # c = ctx.push()
+                        c[o1[0]] = o1[1]
+                    # for x in evalBGP(c, bgp[1:]):
+                    #     print("evaluation", x, c, bgp[1:])
+                    #     yield x
         # if (str(x.subject())==str(_s.subject())):
         #     _s = x
         # if type(z) == rdflib.term.RdfstarTriple & type(_o) == rdflib.term.RdfstarTriple:
         #     if (str(z.subject())==str(_o.subject())):
         #         _o = z
         if isinstance(z, rdflib.term.RdfstarTriple) & isinstance(_o, rdflib.term.RdfstarTriple):
-            if (comparetriples(z, _o)):
+            equalquoted, s1, p1, o1 = comparetriples(z, _o) #ctx
+            if (equalquoted):
                 # print("dualsdaulsd")
                 _o = z
+                c = ctx.push()
+                if s1[1] != None:
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[s1[0]] = s1[1]
+                    else:
+                    # c = ctx.push()
+                        c[s1[0]] = s1[1]
+
+                if p1[1] != None:
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[p1[0]] = p1[1]
+                    else:
+                        c[p1[0]] = p1[1]
+                if o1[1] != None:
+                    if not pushed:
+                        c = ctx.push()
+                        pushed = True
+                        c[o1[0]] = o1[1]
+                    else: #
+                    # c = ctx.push()
+                        c[o1[0]] = o1[1]
     for ss, sp, so in ctx.graph.triples((_s, _p, _o)):
-        # print("ssspso", ss, sp, so)
+        print("ssspso", ss, sp, so)
         if None in (_s, _p, _o):
-            c = ctx.push()
+            # print("\n\n\n\n\nherhererer")
+            if not pushed:
+                c = ctx.push() #70707070
         else:
-            c = ctx
+            # print("\n\n\n\n\nherhererer2")
+            c = ctx # 13 3
 
         if _s is None:
+            # print("\n\n\n\n_s", s, ss)
             c[s] = ss
 
         try:
             if _p is None:
+                # print("\n\n\n\n_s", p, sp)
                 c[p] = sp
+                # c[rdflib.term.variable('s')] = rdflib.term.URIRef('http://example/c')
         except AlreadyBound:
             continue
 
         try:
             if _o is None:
+                # print("\n\n\n\n_s", o, so)
                 c[o] = so
         except AlreadyBound:
             continue
 
         for x in evalBGP(c, bgp[1:]):
+            print("evaluation", x, c, bgp[1:])
             yield x
 
 
@@ -315,10 +431,36 @@ def evalPart(ctx: QueryContext, part: CompValue):
         triples = sorted(
             part.triples, key=lambda t: len([n for n in t if ctx[n] is None])
         )
-
-        return evalBGP(ctx, triples)
-    elif part.name == "Filter":
-        return evalFilter(ctx, part)
+        # print("warawrawrawrawrawrawrawrawrrrrrrrrrttttt", part, triples)
+        for t in triples:
+            for o in t: #
+                print(t)
+                if isinstance(o, rdflib.term.RdfstarTriple): #
+                    subject = o.subject() #
+                    predicate = o.predicate() #
+                    object = o.object() # #
+                    print("Asdasdasd", subject) #
+                    print("Asdasdasd", predicate) #
+                    print("Asdasdasd", object)#13
+                    if isinstance(subject, rdflib.term.Variable):
+                        print(subject)
+                        print(part.PV, type(part._vars), ctx)
+                        # part._vars
+                        part._vars.add(subject)
+                    if isinstance(predicate, rdflib.term.Variable):
+                        print(predicate)
+                        print(part.PV, part._vars, ctx)
+                        part._vars.add(predicate)
+                    if isinstance(object, rdflib.term.Variable):
+                        print(object)#
+                        print(part.PV, part._vars, ctx)#
+                        part._vars.add(object)
+        # print("warawrawrawrawrawrawrawrawrrrrrrrrrttttt", part, triples)
+        result = evalBGP(ctx, triples)
+        # print("1241253265346346\n\n\n\n\n\n\n\n", result)
+        return result
+    elif part.name == "Filter": ##
+        return evalFilter(ctx, part) ##
     elif part.name == "Join":
         return evalJoin(ctx, part)
     elif part.name == "LeftJoin":
@@ -603,11 +745,62 @@ def evalProject(ctx: QueryContext, project: CompValue):
 
 
 def evalSelectQuery(ctx: QueryContext, query: CompValue):
+    # print("evaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", query.p.p.p.triples)
+    try:
+        for t in query.p.p.p.triples:
+            for o in t: #
+                print(t)
+                if isinstance(o, rdflib.term.RdfstarTriple): #
+                    subject = o.subject() #
+                    predicate = o.predicate() #
+                    object = o.object() # #
+                    # print("Asdasdasd", subject) #
+                    # print("Asdasdasd", predicate) #
+                    # print("Asdasdasd", object)#13
+                    if isinstance(subject, rdflib.term.Variable):
+                        # print(subject)
+                        # print("querytasdsadsdas\n\n\n\n\n", query)
+                        # part._vars
+                        query.PV.insert(0, subject)
+                        query._vars.add(subject)
 
+                        # query.p.PV.insert(0, subject)
+                        query.p._vars.add(subject)
+
+                        query.p.p.PV.insert(0, subject)
+                        query.p.p._vars.add(subject)
+                    if isinstance(predicate, rdflib.term.Variable):
+                        # print(predicate)
+                        # print(part.PV, part._vars, ctx)
+                        # print("querytasdsadsdas\n\n\n\n\n", query)
+                        query.PV.insert(0, predicate)
+                        query._vars.add(predicate)
+
+                        query.p._vars.add(predicate) #
+
+                        query.p.p.PV.insert(0, predicate)
+                        query.p.p._vars.add(predicate)
+                    if isinstance(object, rdflib.term.Variable):
+                        # print(object)#
+                        # print(part.PV, part._vars, ctx)#
+                        # print("querytasdsadsdas\n\n\n\n\n", query)
+                        query.PV.insert(0, object) #####
+                        query._vars.add(object)
+
+                        query.p._vars.add(object)
+
+                        query.p.p.PV.insert(0, object)
+                        query.p.p._vars.add(object)
+    except:
+        pass
+    # print("querytasdsadsdas\n\n\n\n\n", query)
     res = {}
     res["type_"] = "SELECT"
     res["bindings"] = evalPart(ctx, query.p)
+    # print("asiojdasoidjsaiodjasiodnonono nononoono\n\n\n\n\n\n\n\n\n\n", ctx)
     res["vars_"] = query.PV
+    # res["vars_"].append(rdflib.term.Variable('o'))
+    # print("asdasdsdasdasdsdttttttttttttttttt\n\n\n\n\n\n\n\n",query.PV , res["vars_"])
     return res
 
 

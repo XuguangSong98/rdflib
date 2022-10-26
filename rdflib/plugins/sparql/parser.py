@@ -473,7 +473,7 @@ def EmbTPparseAction():
             x0value = str(x[0])
         else:
             # setx0 = "?"+str(x[0])
-            x0value = "?"+str(x[0]) # +"?"
+            x0value = x[0] # +"?"#
 
         if not type(x[1]) == rdflib.term.Variable:
             # if (not("prefix" in x[1])and (not('<' in (x[1])["localname"]))):
@@ -483,7 +483,7 @@ def EmbTPparseAction():
             x1value = str(x[1])
             # setx1 = str(x[1])
         else:
-            x1value = "?"+str(x[1]) # +"?"
+            x1value = x[1] # +"?"
             # setx1 = "?"+str(x[1])
 
         if not type(x[2]) == rdflib.term.Variable:
@@ -494,7 +494,7 @@ def EmbTPparseAction():
             x2value = str(x[2])
             # setx2 = str(x[2])
         else:
-            x2value = "?"+str(x[2]) # +"?"
+            x2value = x[2] # +"?"
             # setx2 = "?"+str(x[2])
 
         newreturnrdfstartriple = RdfstarTriple(myHash("<<"+"<"+x0value+">"+"<"+x1value+">"+"<"+x2value+">"+">>") + "RdfstarTriple")
