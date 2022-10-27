@@ -110,7 +110,7 @@ def comparetriples(rdfs1, rdfs2with_):
             # c = ctx.push()
             # c[rdfs2with_.object()] = output_quoted_o
 
-        print("asdasdasdsa", (rdfs2with_.subject(), output_quoted_s), output_quoted_s, output_quoted_p, output_quoted_o)
+        # print("asdasdasdsa", (rdfs2with_.subject(), output_quoted_s), output_quoted_s, output_quoted_p, output_quoted_o)
 
 
     return sequals & pequals & objectequals, (rdfs2with_.subject(), output_quoted_s), (rdfs2with_.predicate(), output_quoted_p),(rdfs2with_.object(), output_quoted_o)
@@ -128,7 +128,7 @@ def evalBGP(
         return
 
     s, p, o = bgp[0]
-    print("BGPSPO", s, p ,o, bgp, type(p), ctx)
+    # print("BGPSPO", s, p ,o, bgp, type(p), ctx)
     # p = rdflib.term.Variable('r')
     # o = rdflib.term.Variable('z')
     _s = ctx[s]
@@ -227,7 +227,7 @@ def evalBGP(
                     # c = ctx.push()
                         c[o1[0]] = o1[1]
     for ss, sp, so in ctx.graph.triples((_s, _p, _o)):
-        print("ssspso", ss, sp, so)
+        # print("ssspso", ss, sp, so)
         if None in (_s, _p, _o):
             # print("\n\n\n\n\nherhererer")
             if not pushed:
@@ -256,7 +256,7 @@ def evalBGP(
             continue
 
         for x in evalBGP(c, bgp[1:]):
-            print("evaluation", x, c, bgp[1:])
+            # print("evaluation", x, c, bgp[1:])
             yield x
 
 
@@ -434,26 +434,26 @@ def evalPart(ctx: QueryContext, part: CompValue):
         # print("warawrawrawrawrawrawrawrawrrrrrrrrrttttt", part, triples)
         for t in triples:
             for o in t: #
-                print(t)
+                # print(t)
                 if isinstance(o, rdflib.term.RdfstarTriple): #
                     subject = o.subject() #
                     predicate = o.predicate() #
                     object = o.object() # #
-                    print("Asdasdasd", subject) #
-                    print("Asdasdasd", predicate) #
-                    print("Asdasdasd", object)#13
+                    # print("Asdasdasd", subject) #
+                    # print("Asdasdasd", predicate) #
+                    # print("Asdasdasd", object)#13
                     if isinstance(subject, rdflib.term.Variable):
-                        print(subject)
-                        print(part.PV, type(part._vars), ctx)
+                        # print(subject)
+                        # print(part.PV, type(part._vars), ctx)
                         # part._vars
                         part._vars.add(subject)
                     if isinstance(predicate, rdflib.term.Variable):
-                        print(predicate)
-                        print(part.PV, part._vars, ctx)
+                        # print(predicate)
+                        # print(part.PV, part._vars, ctx)
                         part._vars.add(predicate)
                     if isinstance(object, rdflib.term.Variable):
-                        print(object)#
-                        print(part.PV, part._vars, ctx)#
+                        # print(object)#
+                        # print(part.PV, part._vars, ctx)#
                         part._vars.add(object)
         # print("warawrawrawrawrawrawrawrawrrrrrrrrrttttt", part, triples)
         result = evalBGP(ctx, triples)
@@ -749,7 +749,7 @@ def evalSelectQuery(ctx: QueryContext, query: CompValue):
     try:
         for t in query.p.p.p.triples:
             for o in t: #
-                print(t)
+                # print(t)
                 if isinstance(o, rdflib.term.RdfstarTriple): #
                     subject = o.subject() #
                     predicate = o.predicate() #

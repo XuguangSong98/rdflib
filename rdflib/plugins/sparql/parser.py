@@ -461,10 +461,10 @@ GraphOrDefault = ParamList("graph", Keyword("DEFAULT")) | Optional(
 def EmbTPparseAction():
     def parseAction(string, loc, x):
         # print()
-        print("herer", string, loc, x[0], x)
+        # print("herer", string, loc, x[0], x)
 
         if not type(x[0]) == rdflib.term.Variable:
-            print(x)
+            # print(x)
             # if (not("prefix" in x[0])and (not('<' in (x[0])["localname"]))):
             #     x0value = ":"+str(x[0]["localname"])
             # else:
@@ -1650,5 +1650,5 @@ def parseUpdate(q):
         q = q.decode("utf-8")
 
     q = expandUnicodeEscapes(q)
-    print('yrdy', q)
+    # print('yrdy', q)
     return UpdateUnit.parseString(q, parseAll=True)[0]

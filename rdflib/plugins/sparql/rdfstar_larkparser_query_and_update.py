@@ -665,7 +665,7 @@ output = ""
 def Parsing_and_processing_updates(query):
     global output, annotation_dict,annotation_s_p_o, to_remove, grammar
 
-    sparql_lark = Lark(grammar2, start="updateunit", parser="lalr", maybe_placeholders=False)
+    sparql_lark = Lark(grammar2, start="update", parser="lalr", maybe_placeholders=False) #
 
     from lark import Visitor, v_args
     # print("query", query)
@@ -694,7 +694,7 @@ def Parsing_and_processing_updates(query):
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
                 # print("twsetstse", annotation_dict)
-                print(Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas", Reconstructor(sparql_lark).reconstruct(var.children[1]))
+                # print(Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas", Reconstructor(sparql_lark).reconstruct(var.children[1]))
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
@@ -740,7 +740,7 @@ def Parsing_and_processing_updates(query):
             tri = Reconstructor(sparql_lark).reconstruct(var)
             if "{|" in tri:
                 # print("tblock", annotation_dict)
-                print(var.children[0],Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas")#
+                # print(var.children[0],Reconstructor(sparql_lark).reconstruct(var.children[0]), "\nasdasdas")#
                 # if len(var.children[0].children) == 2:
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
@@ -1014,7 +1014,7 @@ def Parsing_and_processing_queries(query):
                 # var.children[0] =
                 predicate_object_list2 = var.children[1]
                 subject = Reconstructor(sparql_lark).reconstruct(var.children[0])
-                # print("subject",subject )
+                # print("subject",subject )11111111111
                 po_list = []
                 predicate_objects = predicate_object_list2.children
                 for x in range(0, len(predicate_objects)):

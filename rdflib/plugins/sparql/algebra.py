@@ -205,18 +205,18 @@ def translatePName(  # type: ignore[return]
         return prologue.absolutize(p)  # type: ignore[return-value]
 
     elif isinstance(p, RdfstarTriple):
-        print("asdsadasdasdasdppppppppppppppppppppppppppppppppppp\n\n\n\n\n\n\n\n\n\n\n")
+        # print("asdsadasdasdasdppppppppppppppppppppppppppppppppppp\n\n\n\n\n\n\n\n\n\n\n")
         trSub = translatePName(p.subject(), prologue)
         trPred = translatePName(p.predicate(), prologue)
         trObj = translatePName(p.object(), prologue)
         if trSub is not None:
-            print("asdadasd2222222222222222222222222222222222222222",trSub)
+            # print("asdadasd2222222222222222222222222222222222222222",trSub)
             p.setSubject(trSub)
         if trPred is not None:
-            print("asdadasd2222222222222222222222222222222222222222",trSub)
+            # print("asdadasd2222222222222222222222222222222222222222",trSub)
             p.setPredicate(trPred)
         if trObj is not None:
-            print("asdadasd2222222222222222222222222222222222222222",trSub)
+            # print("asdadasd2222222222222222222222222222222222222222",trSub)
             p.setObject(trObj)
 
 @overload
@@ -392,7 +392,7 @@ def translateGroupGraphPattern(graphPattern: CompValue) -> CompValue:
             # which must be translated to work properly during evaluation.
             G = Extend(G, translateExists(p.expr), p.var)
         elif p.name == "EmpTP":
-            print( "EmpTP\n\n\n\n\n\n\n\n\n", p)
+            # print( "EmpTP\n\n\n\n\n\n\n\n\n", p)
             G = Project(p, p.o)
 
         else:

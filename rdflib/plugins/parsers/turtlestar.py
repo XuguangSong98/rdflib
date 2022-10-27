@@ -800,14 +800,12 @@ class StarsinkParser(SinkParser):
         if quoted_triple_list[0] == rdflib.term.URIRef('https://w3id.org/rdf-star/AssertedStatement'):
             if quoted_triple_list[1] == rdflib.term.URIRef('https://w3id.org/rdf-star/QuotedStatement'):
                 if dira == "->":
-                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[4], quoted_triple_list[3], quoted_triple_list[5]))
                     quoted_triple_list[2].setSubject(quoted_triple_list[3])
                     quoted_triple_list[2].setPredicate(quoted_triple_list[4])
                     quoted_triple_list[2].setObject(quoted_triple_list[5])
 
                 else:
-                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[4], quoted_triple_list[5], quoted_triple_list[3]))
                     # quoted_triple_list[2].setSubject(quoted_triple_list[3])
                     # quoted_triple_list[2].setPredicate(quoted_triple_list[4])
@@ -818,10 +816,8 @@ class StarsinkParser(SinkParser):
 
             else:
                 if dira == "->":
-                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[2], quoted_triple_list[1], quoted_triple_list[3]))
                 else:
-                    print("make")
                     self.makeStatement((self._context, quoted_triple_list[2], quoted_triple_list[3], quoted_triple_list[1]))
         else:
             if dira == "->":
@@ -891,10 +887,8 @@ class StarsinkParser(SinkParser):
                         self.addingquotedRdfstarTriple(quoted_triple_list, dira)
                 else:
                     if dira == "->":
-                        print("make")
                         self.makeStatement((self._context, sym, subj, obj))
                     else:
-                        print("make")
                         self.makeStatement((self._context, sym, obj, subj))
 
             j = self.skipSpace(argstr, i)
